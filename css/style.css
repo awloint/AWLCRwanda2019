@@ -1,0 +1,63 @@
+.boogaloo {
+    font-family: 'Boogaloo',
+        cursive;
+}
+
+.roboto {
+    font-family: 'Roboto Condensed',
+        sans-serif;
+}
+
+.slabo {
+    font-family: 'Slabo 27px',
+        serif;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.top-margin {
+    margin-top: 40px;
+}
+
+.bottom-margin {
+    margin-bottom: 40px;
+}
+
+.container {
+    max-width: 90%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#form {
+    border-style: solid;
+    border-color: rgb(180, 180, 180);
+    border-radius: 15px;
+    border-width: 0px;
+    padding: 40px 20px 20px 20px;
+    box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 255, .2);
+}
+
+.linkedin {
+    background-color: #0077B5;
+    color: #fff;
+}
+
+.twitter {
+    background-color: #55acee;
+    color: #fff;
+}
+
+.instagram {
+    background-color: #e4405f;
+    color: #fff;
+}
+
+.facebook {
+    background-color: #3b5999;
+    color: #fff;
+}

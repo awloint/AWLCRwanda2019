@@ -26,22 +26,37 @@
                 <h1 style="text-align:center;font-family: 'Kaushan Script',cursive">AWLCRwanda2019 REGISTRATION FORM</h1>
             </div>
         </div>
+        <!-- Form Begins -->
         <div class="row justify-content-center top-margin">
-            <form action="#" method="post">
+            <form action="#" method="post" id="form" class="needs-validation bottom-margin" novalidate>
                 <div class="row">
                     <div class="col-md form-group">
                         <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your First Name"
                             required>
+                        <div class="invalid-feedback">
+                            Please provide a Name.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                     <div class="col-md form-group">
                         <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your Last Name"
                             required>
+                        <div class="invalid-feedback">
+                            Please provide a Name.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div classAWLO RWANDA CONFERENCE="col-md form-group">
+                    <div class="col-md form-group">
                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
                             required>
+                        <small class="form-text text-muted">Kindly ensure that it is a current
+                            email. Because your ticket & receipt will be sent here.</small>
                     </div>
                 </div>
                 <div class="row">

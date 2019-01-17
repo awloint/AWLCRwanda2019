@@ -1,4 +1,15 @@
 <?php
+/**
+ * This script handles registration and payment
+ *
+ * PHP version 7.2
+ *
+ * @category Registration_And_Payment
+ * @package  Registration_And_Payment
+ * @author   Benson Imoh,ST <benson@stbensonimoh.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://stbensonimoh.com
+ */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -35,10 +46,83 @@ $usercheckquery->execute(array("$email"));
 //Fetch the Result
 $usercheckquery->rowCount();
 if ($usercheckquery->rowCount() > 0) {   
-    echo json_encode("user_exists");
+    // Check to ss if the user has paid
+    $usercheckpaid = "SELECT * FROM awlc2019 WHERE email=? AND paid='yes'";
+    // prepare the Query
+    $usercheckpaidquery = $conn->prepare($usercheckpaid);
+    // Execute the Query
+    $usercheckpaidquery->execute(array("$email"));
+    // Fetch the Result
+    $usercheckpaidquery->rowCount();
+    if ($usercheckpaidquery->rowCount() > 0 ) {
+        echo json_encode("user_exists");
+    } else {
+        // User has registered but hasn't paid so initiatlize payment
+        $paystack = new Paystack($paystackKey);
+        // throw an exception if there was a problem completing the request,
+        // else returns an object created from the json response
+        $trx = $paystack->transaction->initialize(
+            [
+            'amount'=> $amount, /* 20 naira */
+            'email'=> $email,
+            'currency' => $currency,
+            'callback_url' => 'https://awlo.org/awlc/rwanda2019/verify.php',
+            'metadata' => json_encode(
+                [
+                'custom_fields'=> [
+                    [
+                    'display_name'=> "First Name",
+                    'variable_name'=> "first_name",
+                    'value'=> $firstName
+                    ],
+                    [
+                    'display_name'=> "Last Name",
+                    'variable_name'=> "last_name",
+                    'value'=> $lastName
+                    ],
+                    [
+                    'display_name'=> "Mobile Number",
+                    'variable_name'=> "mobile_number",
+                    'value'=> $phone
+                    ]
+                ]
+                ]
+            )
+            ]
+        );
+
+        // status should be true if there was a successful call
+        // if (!$trx->status) {
+        //     exit($trx->message);
+        // }
+
+
+        echo json_encode($trx->data->authorization_url);
+
+    }
+    
 } else {
     // Insert the user into the database
-    $enteruser = "INSERT into awlc2019 (firstName, lastName, email, phone, country, occupation, organisation, member, referrer, firstConference) VALUES (:firstName, :lastName, :email, :phone, :country, :occupation, :organisation, :member, :referrer, :firstConference)";
+    $enteruser = "INSERT into awlc2019 (firstName, 
+                        lastName, 
+                        email, 
+                        phone, 
+                        country, 
+                        occupation, 
+                        organisation, 
+                        member, 
+                        referrer, 
+                        firstConference)
+                VALUES (:firstName, 
+                        :lastName, 
+                        :email, 
+                        :phone, 
+                        :country, 
+                        :occupation, 
+                        :organisation, 
+                        :member, 
+                        :referrer, 
+                        :firstConference)";
     //  Prepare Query
     $enteruserquery = $conn->prepare($enteruser);
     //  Execute the Query
@@ -61,16 +145,17 @@ if ($usercheckquery->rowCount() > 0) {
     $enteruserquery->rowCount();
     // Check to see if the query executed successfully
     if ($enteruserquery->rowCount() > 0) {
-        $paystack = new Paystack('sk_test_af1b02672c3124527de88d9b4ab4df6c72dd23c9');
-        // the code below throws an exception if there was a problem completing the request,
+        $paystack = new Paystack($paystackKey);
+        // throw an exception if there was a problem completing the request,
         // else returns an object created from the json response
         $trx = $paystack->transaction->initialize(
-        [
+            [
             'amount'=> $amount, /* 20 naira */
             'email'=> $email,
             'currency' => $currency,
             'callback_url' => 'https://awlo.org/awlc/rwanda2019/verify.php',
-            'metadata' => json_encode([
+            'metadata' => json_encode(
+                [
                 'custom_fields'=> [
                     [
                     'display_name'=> "First Name",
@@ -88,8 +173,9 @@ if ($usercheckquery->rowCount() > 0) {
                     'value'=> $phone
                     ]
                 ]
-            ])
-        ]
+                ]
+            )
+            ]
         );
 
         // status should be true if there was a successful call

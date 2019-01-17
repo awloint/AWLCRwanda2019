@@ -13,8 +13,9 @@
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 
-require 'scripts/dbconfig.php';
-require 'scripts/Paystack.php';
+require './scripts/dbconfig.php';
+require './scripts/Paystack.php';
+
 // Pull in Sendupulse Classes
 require 'sendpulse-rest-api-php/ApiInterface.php';
 require 'sendpulse-rest-api-php/ApiClient.php';

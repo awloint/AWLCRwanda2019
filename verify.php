@@ -15,6 +15,7 @@
 
 require './scripts/dbconfig.php';
 require './scripts/Paystack.php';
+
 // Pull in Sendupulse Classes
 require 'sendpulse-rest-api-php/ApiInterface.php';
 require 'sendpulse-rest-api-php/ApiClient.php';

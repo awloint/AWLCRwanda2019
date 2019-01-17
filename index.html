@@ -15,6 +15,10 @@
         crossorigin="anonymous">
     <!-- Load Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Boogaloo|Roboto+Condensed|Slabo+27px" rel="stylesheet">
+    <!-- Load sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Load Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Load Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -329,6 +333,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md form-group">
+                        <label for="occupation">What is your Occupation?</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid phone number.
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md form-group">
                         <label for="organisation">What is the Company or Organisation you belong to?</label>
                         <input type="text" class="form-control" id="organisation" name="organisation" required>
                         <div class="invalid-feedback">
@@ -380,7 +396,7 @@
                 
                 <div class="row">
                     <div class="col">
-                        <p class="text-center"><button type="submit" class="btn btn-danger" style="padding-left: 40px; padding-right:40px; margin-top:20px;">Register</button></p>
+                        <p class="text-center"><button type="submit" id="register" class="btn btn-danger" style="padding-left: 40px; padding-right:40px; margin-top:20px;">Register</button></p>
                     </div>
                 </div>
             </form>
